@@ -12,9 +12,10 @@ namespace Backend_Web.Models.DAL
     {
         #region .: Constructors :.
         public DatabaseContext() : base("DatabaseConnectionString") {
-            tables = new TypeDictionary<object>
+            Tables = new TypeDictionary<object>
             {
-                { typeof(User), Users }
+                { typeof(User), Users },
+                { typeof(Property), Properties} 
             };
         }
 
@@ -22,12 +23,13 @@ namespace Backend_Web.Models.DAL
 
         #region .: Properties :.
         public DbSet<User> Users { get; set; }
+        public DbSet<Property> Properties { get; set; }
 
-        private TypeDictionary<object> tables;
+        private TypeDictionary<object> Tables;
 
         public DbSet<T> GetTable<T>() where T : class
         {
-            return (DbSet<T>) this.tables.Get<T>();
+            return (DbSet<T>) this.Tables.Get<T>();
         }
         #endregion
     }

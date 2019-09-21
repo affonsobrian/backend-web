@@ -1,5 +1,7 @@
 ﻿using Backend_Web.Models;
 using Backend_Web.StaticClasses;
+using Backend_Web.Utils;
+using System;
 using System.Data.Entity;
 
 namespace Backend_Web.DAL.DAO_s
@@ -11,6 +13,7 @@ namespace Backend_Web.DAL.DAO_s
         public BaseDAO()
         {
             this.db = DatabaseHandler.Database.GetTable<T>();
+            this.logger = LoggerManager.GetDefaultLogger(typeof(T).GetType().Name);
         }
 
         #endregion
@@ -19,14 +22,39 @@ namespace Backend_Web.DAL.DAO_s
 
         private readonly DbSet<T> db;
 
+        private readonly Logger logger;
+
         #endregion
 
         #region .: Public Methods :.
 
-        public void Insert(T element)
+        public bool Insert(T element)
         {
-            this.db.Add(element);
-            DatabaseHandler.Database.SaveChanges();
+            try
+            {
+                this.db.Add(element);
+                DatabaseHandler.Database.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex, "Error while inserting element");
+                return false;
+            }
+
+        }
+
+        public T FindById(int id)
+        {
+            try
+            {
+                return this.db.Find(id);
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex, "Error finding an element");
+                return null;
+            }
         }
 
         #endregion
