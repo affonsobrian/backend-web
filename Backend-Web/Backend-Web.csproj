@@ -82,6 +82,9 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
@@ -169,20 +172,28 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\BaseControoler.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\Configuration.cs" />
     <Compile Include="DAL\DAO%27s\BaseDAO.cs" />
     <Compile Include="DAL\DAO%27s\DbContext.cs" />
+    <Compile Include="DAL\DAO%27s\TokenDAO.cs" />
     <Compile Include="DAL\DAO%27s\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DAL\DatabaseContext.cs" />
     <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="StaticClasses\DatabaseHandler.cs" />
     <Compile Include="StaticClasses\KnowlegeContext.cs" />
+    <Compile Include="Utils\BaseResponse.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Utils\MongoDAO.cs" />
     <Compile Include="Utils\TypeDictionary.cs" />

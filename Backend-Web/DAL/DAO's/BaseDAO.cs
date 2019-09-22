@@ -1,60 +1,51 @@
-﻿using Backend_Web.Models;
-using Backend_Web.StaticClasses;
-using Backend_Web.Utils;
+﻿using Backend_Web.StaticClasses;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Linq.Dynamic;
 
 namespace Backend_Web.DAL.DAO_s
 {
-    public class BaseDAO<T> where T : class
+    /// <summary>
+    /// Abstract class for the data access layer
+    /// </summary>
+    /// <typeparam name="TModel">The model of database</typeparam>
+    public class BaseDAO<TModel> where TModel : class
     {
         #region .: Constructors :.
 
         public BaseDAO()
         {
-            this.db = DatabaseHandler.Database.GetTable<T>();
-            this.logger = LoggerManager.GetDefaultLogger(typeof(T).GetType().Name);
+            this.db = DatabaseHandler.Database.GetTable<TModel>();
         }
 
         #endregion
 
         #region .: Properties :.
 
-        private readonly DbSet<T> db;
-
-        private readonly Logger logger;
+        protected readonly DbSet<TModel> db;
 
         #endregion
 
         #region .: Public Methods :.
 
-        public bool Insert(T element)
+        public bool Insert(TModel element)
         {
-            try
-            {
-                this.db.Add(element);
-                DatabaseHandler.Database.SaveChanges();
-                return true;
-            }
-            catch(Exception ex)
-            {
-                logger.Error(ex, "Error while inserting element");
-                return false;
-            }
-
+            db.Add(element);
+            return DatabaseHandler.Database.SaveChanges() > 0;
         }
 
-        public T FindById(int id)
+        public TModel FindById(int id)
         {
-            try
-            {
-                return this.db.Find(id);
-            }
-            catch(Exception ex)
-            {
-                logger.Error(ex, "Error finding an element");
-                return null;
-            }
+            return this.db.Find(id);
+        }
+
+        public List<TModel> Query(string parameter, string value)
+        {
+            IQueryable<TModel> dbSet = this.db;
+            IQueryable<TModel> models = dbSet.Where(parameter + " = @0", value);
+            return models.ToList();
         }
 
         #endregion
