@@ -34,7 +34,7 @@ namespace Backend_Web.Services
 
         #region .: Public Methods :.
 
-        public virtual BaseResponse<TModel> Get(int id)
+        public virtual BaseResponse<TModel> Find(int id)
         {
             try
             {
@@ -60,6 +60,51 @@ namespace Backend_Web.Services
             {
                 logger.Error(ex, "Error inserting " + typeof(TModel).Name);
                 return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+            }
+        }
+
+        public virtual BaseResponse<string> Edit(TModel element)
+        {
+            try
+            {
+                if (this._dao.Edit(element))
+                    return new BaseResponse<string> { Status = Status.OK, Content = "Success" };
+                else
+                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error editing " + typeof(TModel).Name);
+                return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+            }
+        }
+
+        public virtual BaseResponse<string> Remove(int id)
+        {
+            try
+            {
+                if (this._dao.Remove(id))
+                    return new BaseResponse<string> { Status = Status.OK, Content = "Success" };
+                else
+                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error removing " + typeof(TModel).Name);
+                return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+            }
+        }
+        public virtual BaseResponse<List<TModel>> List()
+        {
+            try
+            {
+                List<TModel> element = _dao.List();
+                return new BaseResponse<List<TModel>> { Status = Status.OK, Content = element, Message = "Success" };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error getting " + typeof(TModel).Name);
+                return new BaseResponse<List<TModel>> { Status = Status.ERROR, Message = ex.Message, Content = null };
             }
         }
 

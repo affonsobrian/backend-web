@@ -20,5 +20,15 @@ namespace Backend_Web.Services
             }
             return base.Insert(element);
         }
+
+        public override BaseResponse<string> Edit(User element)
+        {
+            using (SHA256 mySHA256 = SHA256.Create())
+            {
+                byte[] PasswordHash = mySHA256.ComputeHash(Encoding.ASCII.GetBytes(element.Password));
+                element.Password = Encoding.ASCII.GetString(PasswordHash);
+            }
+            return base.Edit(element);
+        }
     }
 }

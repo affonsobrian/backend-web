@@ -16,7 +16,8 @@ namespace Backend_Web.Models.DAL
             {
                 { typeof(User), Users },
                 { typeof(Property), Properties },
-                { typeof(Token), Token }
+                { typeof(Token), Token },
+                { typeof(Person), People }
             };
         }
 
@@ -26,6 +27,8 @@ namespace Backend_Web.Models.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Token> Token { get; set; }
+        public DbSet<Person> People { get; set; }
+
         private TypeDictionary<object> Tables;
 
         #endregion

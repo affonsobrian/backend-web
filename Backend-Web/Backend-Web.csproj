@@ -90,11 +90,17 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -173,29 +179,36 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\BaseControoler.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\Configuration.cs" />
     <Compile Include="DAL\DAO%27s\BaseDAO.cs" />
-    <Compile Include="DAL\DAO%27s\DbContext.cs" />
+    <Compile Include="DAL\DAO%27s\PersonDAO.cs" />
+    <Compile Include="DAL\DAO%27s\PropertyDAO.cs" />
     <Compile Include="DAL\DAO%27s\TokenDAO.cs" />
     <Compile Include="DAL\DAO%27s\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DAL\DatabaseContext.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\PersonService.cs" />
+    <Compile Include="Services\PropertyService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="StaticClasses\DatabaseHandler.cs" />
     <Compile Include="StaticClasses\KnowlegeContext.cs" />
     <Compile Include="Utils\BaseResponse.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Utils\MongoDAO.cs" />
+    <Compile Include="Utils\TokenAuthorizationAttribute.cs" />
     <Compile Include="Utils\TypeDictionary.cs" />
   </ItemGroup>
   <ItemGroup>

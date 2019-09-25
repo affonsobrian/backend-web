@@ -7,12 +7,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Http;
 
 namespace Backend_Web.Services
 {
     public class AuthService : BaseService<Token, TokenDAO>
     {
-        public BaseResponse<Token> Login(string username, string password)
+        public BaseResponse<string> Login(string username, string password)
         {
             try
             {
@@ -24,21 +25,26 @@ namespace Backend_Web.Services
 
                 Token token = this._dao.Login(username, password);
 
-                if (token.User == null)
-                    return new BaseResponse<Token> { Status = Status.ERROR, Message = "User not found" };
-                else if (token.Value == null)
-                    return new BaseResponse<Token> { Status = Status.ERROR, Message = "User and password don't match" };
+                if (token == null)
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = "User not found" };
+                else if (token.Value == Guid.Empty)
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = "User and password don't match" };
 
                 if (_dao.Insert(token))
-                    return new BaseResponse<Token> { Status = Status.OK, Content = token , Message = "Success"};
+                    return new BaseResponse<string> { Status = Status.OK, Content = token.Value.ToString() , Message = "Success"};
                 else
-                    return new BaseResponse<Token> { Status = Status.ERROR, Message = "Unexpected Error" };
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = "Unexpected Error" };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<Token> { Status = Status.ERROR, Message = "Unexpected Error" };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = "Unexpected Error" };
             }
             
+        }
+
+        public bool ValidToken(string token)
+        {
+            return _dao.ValidateToken(token);
         }
     }
 }
