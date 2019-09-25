@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace Backend_Web.Models
         /// <summary>
         /// Wheter the person is still active
         /// </summary>
+        [JsonIgnore]
         public bool Active { get; set; } = true;
     }
 }

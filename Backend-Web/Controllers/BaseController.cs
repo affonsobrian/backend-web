@@ -40,7 +40,10 @@ namespace Backend_Web.Controllers
         [HttpPost]
         public virtual BaseResponse<string> Post(TModel element)
         {
-            return _service.Insert(element);
+            BaseResponse<bool> response = this.VatidateObject(element);
+            if (response.Content)
+                return _service.Insert(element);
+            return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
         }
 
         [HttpPut]
@@ -61,6 +64,11 @@ namespace Backend_Web.Controllers
         public virtual BaseResponse<List<TModel>> List()
         {
             return _service.List();
+        }
+
+        protected virtual BaseResponse<bool> VatidateObject(TModel element)
+        {
+            return new BaseResponse<bool> { Content = true };
         }
 
         #endregion

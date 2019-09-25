@@ -43,7 +43,7 @@ namespace Backend_Web.Services
             }catch(Exception ex)
             {
                 logger.Error(ex, "Error getting " + typeof(TModel).Name);
-                return new BaseResponse<TModel> { Status = Status.ERROR };
+                return new BaseResponse<TModel> { Status = Status.ERROR, Message = "Error finding object" };
             }
         }
 
@@ -52,14 +52,14 @@ namespace Backend_Web.Services
             try
             {
                 if (this._dao.Insert(element))
-                    return new BaseResponse<string> { Status = Status.OK, Content = "Success" };
+                    return new BaseResponse<string> { Status = Status.OK, Message = "Success" };
                 else
-                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
             }
             catch(Exception ex)
             {
                 logger.Error(ex, "Error inserting " + typeof(TModel).Name);
-                return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
             }
         }
 
