@@ -12,7 +12,6 @@ namespace Backend_Web
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
-
             GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
                     {
@@ -33,6 +32,11 @@ namespace Backend_Web
                         // additional fields by chaining methods off SingleApiVersion.
                         //
                         c.SingleApiVersion("v1", "Backend_Web");
+
+                        c.ApiKey("Authorization")
+                        .Description("Filling bearer token here")
+                        .Name("Bearer")
+                        .In("header");
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
@@ -61,7 +65,7 @@ namespace Backend_Web
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
@@ -249,6 +253,7 @@ namespace Backend_Web
                         // "apiKeyIn" can either be "query" or "header"
                         //
                         //c.EnableApiKeySupport("apiKey", "header");
+                        c.EnableApiKeySupport("Authorization", "header");
                     });
         }
     }

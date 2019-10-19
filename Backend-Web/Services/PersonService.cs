@@ -1,10 +1,7 @@
 ﻿using Backend_Web.DAL.DAO_s;
 using Backend_Web.Models;
 using Backend_Web.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Backend_Web.Services
 {
@@ -14,7 +11,10 @@ namespace Backend_Web.Services
         {
             BaseResponse<Person> response = base.Find(id);
             if (response.Status == Status.OK && (response.Content?.Active ?? false))
+            {
                 return response;
+            }
+
             return new BaseResponse<Person> { Status = Status.OK, Content = null, Message = "Object not found" };
         }
 
@@ -22,7 +22,10 @@ namespace Backend_Web.Services
         {
             BaseResponse<List<Person>> response = base.List();
             if (response.Status == Status.OK && response.Content.Count > 0)
+            {
                 response.Content = response.Content.FindAll(_ => _.Active);
+            }
+
             return response;
         }
     }

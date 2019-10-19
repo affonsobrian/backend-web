@@ -14,11 +14,6 @@ namespace Backend_Web.Controllers
     {
         protected override BaseResponse<bool> VatidateObject(Person element)
         {
-            if (element.Id != 0)
-            {
-                return new BaseResponse<bool> { Content = false, Message = "Element id needs to be 0" };
-            }
-
             if (string.IsNullOrEmpty(element.FirstName))
             {
                 return new BaseResponse<bool> { Content = false, Message = "First name can't be empty" };
@@ -54,7 +49,7 @@ namespace Backend_Web.Controllers
                 Regex regex = new Regex("^\\([1-9]{2}\\) [9]{0,1}[1-9]{1}[0-9]{3}\\-[0-9]{4}$");
                 return regex.IsMatch(telephone);
             }
-            catch(Exception ex)
+            catch (Exception)
             {
                 return false;
             }

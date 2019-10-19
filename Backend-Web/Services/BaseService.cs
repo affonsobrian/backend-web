@@ -2,8 +2,6 @@
 using Backend_Web.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Backend_Web.Services
 {
@@ -18,8 +16,8 @@ namespace Backend_Web.Services
 
         public BaseService()
         {
-            this._dao = new TDao();
-            this.logger = LoggerManager.GetDefaultLogger(typeof(TModel).Name);
+            _dao = new TDao();
+            logger = LoggerManager.GetDefaultLogger(typeof(TModel).Name);
         }
 
         #endregion
@@ -39,8 +37,9 @@ namespace Backend_Web.Services
             try
             {
                 TModel element = _dao.FindById(id);
-                return new BaseResponse<TModel> { Status = Status.OK, Content = element};
-            }catch(Exception ex)
+                return new BaseResponse<TModel> { Status = Status.OK, Content = element };
+            }
+            catch (Exception ex)
             {
                 logger.Error(ex, "Error getting " + typeof(TModel).Name);
                 return new BaseResponse<TModel> { Status = Status.ERROR, Message = "Error finding object" };
@@ -51,12 +50,16 @@ namespace Backend_Web.Services
         {
             try
             {
-                if (this._dao.Insert(element))
+                if (_dao.Insert(element))
+                {
                     return new BaseResponse<string> { Status = Status.OK, Message = "Success" };
+                }
                 else
+                {
                     return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex, "Error inserting " + typeof(TModel).Name);
                 return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
@@ -67,15 +70,19 @@ namespace Backend_Web.Services
         {
             try
             {
-                if (this._dao.Edit(element))
-                    return new BaseResponse<string> { Status = Status.OK, Content = "Success" };
+                if (_dao.Edit(element))
+                {
+                    return new BaseResponse<string> { Status = Status.OK, Message = "Success" };
+                }
                 else
-                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+                {
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Error editing " + typeof(TModel).Name);
-                return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
             }
         }
 
@@ -83,15 +90,19 @@ namespace Backend_Web.Services
         {
             try
             {
-                if (this._dao.Remove(id))
-                    return new BaseResponse<string> { Status = Status.OK, Content = "Success" };
+                if (_dao.Remove(id))
+                {
+                    return new BaseResponse<string> { Status = Status.OK, Message = "Success" };
+                }
                 else
-                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+                {
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Error removing " + typeof(TModel).Name);
-                return new BaseResponse<string> { Status = Status.ERROR, Content = "Failed" };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
             }
         }
         public virtual BaseResponse<List<TModel>> List()

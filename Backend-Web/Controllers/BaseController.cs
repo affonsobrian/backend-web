@@ -1,10 +1,7 @@
 ﻿using Backend_Web.DAL.DAO_s;
 using Backend_Web.Services;
 using Backend_Web.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -18,7 +15,7 @@ namespace Backend_Web.Controllers
         #region .: Contructors :.
         public BaseController()
         {
-            this._service = new TService();
+            _service = new TService();
         }
 
         #endregion
@@ -40,16 +37,25 @@ namespace Backend_Web.Controllers
         [HttpPost]
         public virtual BaseResponse<string> Post(TModel element)
         {
-            BaseResponse<bool> response = this.VatidateObject(element);
+            BaseResponse<bool> response = VatidateObject(element);
             if (response.Content)
+            {
                 return _service.Insert(element);
+            }
+
             return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
         }
 
         [HttpPut]
         public virtual BaseResponse<string> Put(TModel element)
         {
-            return _service.Edit(element);
+            BaseResponse<bool> response = VatidateObject(element);
+            if (response.Content)
+            {
+                return _service.Edit(element);
+            }
+
+            return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
         }
 
         [HttpDelete]

@@ -15,7 +15,7 @@ namespace Backend_Web.Services
         {
             using (SHA256 mySHA256 = SHA256.Create())
             {
-                byte [] PasswordHash = mySHA256.ComputeHash(Encoding.ASCII.GetBytes(element.Password));
+                byte[] PasswordHash = mySHA256.ComputeHash(Encoding.ASCII.GetBytes(element.Password));
                 element.Password = Encoding.ASCII.GetString(PasswordHash);
             }
             return base.Insert(element);

@@ -1,7 +1,9 @@
 ﻿using Backend_Web.Models;
 using Backend_Web.Models.DAL;
 using System.Data.Entity.Migrations;
-using System.Linq;  
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Backend_Web.DAL
 {
@@ -21,7 +23,11 @@ namespace Backend_Web.DAL
         {
             if (context.Users.Count() == 0)
             {
-                context.Users.Add(new User { Name = "admin", Password = "admin123" });
+                using (SHA256 mySHA256 = SHA256.Create())
+                {
+                    byte[] PasswordHash = mySHA256.ComputeHash(Encoding.ASCII.GetBytes("admin123"));
+                    context.Users.Add(new User { Name = "admin", Password = Encoding.ASCII.GetString(PasswordHash) });
+                }
             }
 
             context.SaveChanges();

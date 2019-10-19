@@ -1,49 +1,35 @@
-﻿using Backend_Web.DAL.DAO_s;
-using Backend_Web.Models;
+﻿using Backend_Web.Models;
 using Backend_Web.Services;
 using Backend_Web.Utils;
-using System.Collections.Generic;
+using System;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace Backend_Web.Controllers
 {
-    public class AuthController : BaseController<Token, AuthService, TokenDAO>
+    public class AuthController : ApiController
     {
         [HttpPost]
-        public BaseResponse<string> Login([FromBody] Dictionary<string, string> data)
+        [AllowAnonymous]
+        public BaseResponse<string> Login(UserLogin user)
         {
-            return _service.Login(data["username"], data["password"]);
-        }
+            try
+            {
+                if (string.IsNullOrEmpty(user.username))
+                {
+                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Missing parameter username" };
+                }
+                if (string.IsNullOrEmpty(user.password))
+                {
+                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Missing parameter password" };
+                }
 
-        [NonAction]
-        public override BaseResponse<Token> Get(int id)
-        {
-            return null;
-        }
-
-        [NonAction]
-        public override BaseResponse<string> Post(Token element)
-        {
-            return null;
-        }
-
-        [NonAction]
-        public override BaseResponse<string> Put(Token element)
-        {
-            return null;
-        }
-
-        [NonAction]
-        public override BaseResponse<string> Delete(int id)
-        {
-            return null;
-        }
-
-        [NonAction]
-        public override BaseResponse<List<Token>> List()
-        {
-            return null;
+                AuthService authService = new AuthService();
+                return authService.Login(user.username, user.password); ;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<string> { Status = Status.ERROR, Message = ex.Message };
+            }
         }
     }
 

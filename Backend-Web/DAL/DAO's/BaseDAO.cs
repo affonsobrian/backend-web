@@ -18,8 +18,8 @@ namespace Backend_Web.DAL.DAO_s
 
         public BaseDAO()
         {
-            this.db = DatabaseHandler.Database.GetTable<TModel>();
-            this.logger = LoggerManager.GetDefaultLogger(typeof(TModel).Name);
+            db = DatabaseHandler.Database.GetTable<TModel>();
+            logger = LoggerManager.GetDefaultLogger(typeof(TModel).Name);
         }
 
         #endregion
@@ -35,7 +35,7 @@ namespace Backend_Web.DAL.DAO_s
 
         public virtual TModel FindById(int id)
         {
-            return this.db.Find(id);
+            return db.Find(id);
         }
 
         public virtual bool Insert(TModel element)
@@ -65,11 +65,11 @@ namespace Backend_Web.DAL.DAO_s
         {
             try
             {
-                IQueryable<TModel> dbSet = this.db;
+                IQueryable<TModel> dbSet = db;
                 IQueryable<TModel> models = dbSet.Where(parameter + " = @0", value);
                 return models.ToList();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Warn(ex, "Query failed");
                 return null;
@@ -80,7 +80,7 @@ namespace Backend_Web.DAL.DAO_s
         {
             try
             {
-                IQueryable<TModel> dbSet = this.db;
+                IQueryable<TModel> dbSet = db;
                 string q = string.Empty;
                 object[] values = new object[filters.Count];
 

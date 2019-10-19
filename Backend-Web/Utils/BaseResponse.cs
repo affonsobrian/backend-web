@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Backend_Web.Utils
+﻿namespace Backend_Web.Utils
 {
     public class BaseResponse<T>
     {

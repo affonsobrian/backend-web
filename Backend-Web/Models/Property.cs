@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Backend_Web.Models
+﻿namespace Backend_Web.Models
 {
     /// <summary>
     /// The Properties that can be borrowed
