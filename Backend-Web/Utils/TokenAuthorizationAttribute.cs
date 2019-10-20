@@ -8,6 +8,8 @@ namespace Backend_Web.Utils
     {
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
+#if !NoAuthentication
+
             if (actionContext.Request.Headers.Authorization?.Scheme == "Bearer" && new AuthService().ValidToken(actionContext.Request.Headers.Authorization?.Parameter, out string username))
             {
                 return true;
@@ -16,6 +18,9 @@ namespace Backend_Web.Utils
             {
                 return false;
             }
+#else
+            return true;
+#endif
         }
     }
 }

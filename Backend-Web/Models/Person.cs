@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend_Web.Models
@@ -6,6 +7,8 @@ namespace Backend_Web.Models
     [Table("Person")]
     public class Person
     {
+        #region .: Properties :.
+
         /// <summary>
         /// Id for selecting the person
         /// </summary>
@@ -34,6 +37,17 @@ namespace Backend_Web.Models
         /// Wheter the person is still active
         /// </summary>
         [JsonIgnore]
-        public bool Active { get; set; } = true;
+        public bool Active { get; set; } = true; 
+
+        #endregion
+
+        #region .: References :.
+
+        /// <summary>
+        /// Properties of this user
+        /// </summary>
+        public virtual List<Property> Properties { get; set; } 
+        
+        #endregion
     }
 }

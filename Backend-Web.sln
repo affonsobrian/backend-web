@@ -13,11 +13,14 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		NoAuthentication|Any CPU = NoAuthentication|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{27EA42D0-BD16-41E7-A4BA-E36DC919D0A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27EA42D0-BD16-41E7-A4BA-E36DC919D0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27EA42D0-BD16-41E7-A4BA-E36DC919D0A0}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{27EA42D0-BD16-41E7-A4BA-E36DC919D0A0}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{27EA42D0-BD16-41E7-A4BA-E36DC919D0A0}.NoAuthentication|Any CPU.ActiveCfg = NoAuthentication|Any CPU
+		{27EA42D0-BD16-41E7-A4BA-E36DC919D0A0}.NoAuthentication|Any CPU.Build.0 = NoAuthentication|Any CPU
 		{27EA42D0-BD16-41E7-A4BA-E36DC919D0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27EA42D0-BD16-41E7-A4BA-E36DC919D0A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

@@ -1,6 +1,7 @@
 ﻿using Backend_Web.DAL.DAO_s;
 using Backend_Web.Services;
 using Backend_Web.Utils;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -31,37 +32,65 @@ namespace Backend_Web.Controllers
         [HttpGet]
         public virtual BaseResponse<TModel> Get(int id)
         {
-            return _service.Find(id);
+            try
+            {
+                return _service.Find(id);
+            }
+            catch (Exception)
+            {
+                return new BaseResponse<TModel> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+            }
         }
 
         [HttpPost]
         public virtual BaseResponse<string> Post(TModel element)
         {
-            BaseResponse<bool> response = VatidateObject(element);
-            if (response.Content)
+            try
             {
-                return _service.Insert(element);
-            }
+                BaseResponse<bool> response = VatidateObject(element);
+                if (response.Content)
+                {
+                    return _service.Insert(element);
+                }
 
-            return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
+            }
+            catch (Exception)
+            {
+                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+            }
         }
 
         [HttpPut]
         public virtual BaseResponse<string> Put(TModel element)
         {
-            BaseResponse<bool> response = VatidateObject(element);
-            if (response.Content)
+            try
             {
-                return _service.Edit(element);
-            }
+                BaseResponse<bool> response = VatidateObject(element);
+                if (response.Content)
+                {
+                    return _service.Edit(element);
+                }
 
-            return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
+            }
+            catch (Exception)
+            {
+                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+            }
         }
 
         [HttpDelete]
         public virtual BaseResponse<string> Delete(int id)
         {
-            return _service.Remove(id);
+            try
+            {
+                return _service.Remove(id);
+            }
+            catch (Exception)
+            {
+                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+            }
         }
 
         [HttpGet]
@@ -74,7 +103,14 @@ namespace Backend_Web.Controllers
 
         protected virtual BaseResponse<bool> VatidateObject(TModel element)
         {
-            return new BaseResponse<bool> { Content = true };
+            try
+            {
+                return new BaseResponse<bool> { Content = true };
+            }
+            catch (Exception)
+            {
+                return new BaseResponse<bool> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+            }
         }
 
         #endregion

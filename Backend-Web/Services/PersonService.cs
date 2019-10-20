@@ -1,6 +1,7 @@
 ﻿using Backend_Web.DAL.DAO_s;
 using Backend_Web.Models;
 using Backend_Web.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace Backend_Web.Services
@@ -27,6 +28,11 @@ namespace Backend_Web.Services
             }
 
             return response;
+        }
+
+        public BaseResponse<string> Borrow(int id, int property)
+        {
+            return new BaseResponse<string> { Status = Status.OK, Message = Resources.Commun.success };
         }
     }
 }

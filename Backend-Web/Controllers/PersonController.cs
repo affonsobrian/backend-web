@@ -3,44 +3,91 @@ using Backend_Web.Models;
 using Backend_Web.Services;
 using Backend_Web.Utils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web.Http;
 
 namespace Backend_Web.Controllers
 {
     public class PersonController : BaseController<Person, PersonService, PersonDAO>
     {
+        #region .: Overridden Methods :.
+
         protected override BaseResponse<bool> VatidateObject(Person element)
         {
-            if (string.IsNullOrEmpty(element.FirstName))
+            try
             {
-                return new BaseResponse<bool> { Content = false, Message = "First name can't be empty" };
-            }
+                if (string.IsNullOrEmpty(element.FirstName))
+                {
+                    return new BaseResponse<bool> { Content = false, Message = "First name can't be empty" };
+                }
 
-            if (string.IsNullOrEmpty(element.LastName))
+                if (string.IsNullOrEmpty(element.LastName))
+                {
+                    return new BaseResponse<bool> { Content = false, Message = "Last name can't be empty" };
+                }
+
+                if (string.IsNullOrEmpty(element.Email) || !new EmailAddressAttribute().IsValid(element.Email))
+                {
+                    return new BaseResponse<bool> { Content = false, Message = "Invalid e-mail" };
+                }
+
+                if (string.IsNullOrEmpty(element.Telephone) || !ValidateTelephone(element.Telephone))
+                {
+                    return new BaseResponse<bool> { Content = false, Message = "Invalid telephone" };
+                }
+
+                if (string.IsNullOrEmpty(element.RG) || !ValidateRG(element.RG))
+                {
+                    return new BaseResponse<bool> { Content = false, Message = "Invalid RG" };
+                }
+
+                return base.VatidateObject(element);
+            }
+            catch (Exception)
             {
-                return new BaseResponse<bool> { Content = false, Message = "Last name can't be empty" };
+                return new BaseResponse<bool> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
             }
-
-            if (string.IsNullOrEmpty(element.Email) || !new EmailAddressAttribute().IsValid(element.Email))
-            {
-                return new BaseResponse<bool> { Content = false, Message = "Invalid e-mail" };
-            }
-
-            if (string.IsNullOrEmpty(element.Telephone) || !ValidateTelephone(element.Telephone))
-            {
-                return new BaseResponse<bool> { Content = false, Message = "Invalid telephone" };
-            }
-
-            if (string.IsNullOrEmpty(element.RG) || !ValidateRG(element.RG))
-            {
-                return new BaseResponse<bool> { Content = false, Message = "Invalid RG" };
-            }
-
-            return base.VatidateObject(element);
         }
+
+        #endregion
+
+        #region .: Public Methods :.
+
+        [HttpGet]
+        [Route("api/person/properties/{id}")]
+        public BaseResponse<List<Property>> Properties(int id)
+        {
+            try
+            {
+                return new BaseResponse<List<Property>> { Status = Status.OK, Message = Resources.Commun.success, Content = new List<Property>() };
+            }
+            catch(Exception)
+            {
+                return new BaseResponse<List<Property>> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+            }
+        }
+
+        [HttpPut]
+        [Route("api/person/{id}/borrow")]
+        public BaseResponse<string> Borrow(int id, [FromBody] int property)
+        {
+            try
+            {
+                return _service.Borrow(id, property);
+            }
+            catch (Exception)
+            {
+                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+            }
+        }
+
+        #endregion
+
+        #region .: Private Methods :.
 
         private bool ValidateTelephone(string telephone)
         {
@@ -88,6 +135,8 @@ namespace Backend_Web.Controllers
                 return false;
             }
 
-        }
+        } 
+
+        #endregion
     }
 }

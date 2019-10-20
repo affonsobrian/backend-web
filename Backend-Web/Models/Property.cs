@@ -17,5 +17,9 @@
         /// The description of the property
         /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// The id of the person with this item
+        /// </summary>
+        public int PersonId { get; set; }
     }
 }
