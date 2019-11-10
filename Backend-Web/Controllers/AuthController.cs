@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace Backend_Web.Controllers
 {
-    public class AuthController : ApiController
+    public class AuthController : BaseController<AuthService>
     {
         [HttpPost]
         [AllowAnonymous]
