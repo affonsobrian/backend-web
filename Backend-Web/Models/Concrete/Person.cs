@@ -14,13 +14,9 @@ namespace Backend_Web.Models
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// First name of the person
+        /// Full name of the person
         /// </summary>
-        public string FirstName { get; set; }
-        /// <summary>
-        /// Last name of the person
-        /// </summary>
-        public string LastName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Email for contacting the person
         /// </summary>
@@ -46,6 +42,7 @@ namespace Backend_Web.Models
         /// <summary>
         /// Properties of this user
         /// </summary>
+        [JsonIgnore]
         public virtual List<Property> Properties { get; set; } 
         
         #endregion

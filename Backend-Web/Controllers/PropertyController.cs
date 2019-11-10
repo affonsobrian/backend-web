@@ -4,7 +4,7 @@ using Backend_Web.Services;
 
 namespace Backend_Web.Controllers
 {
-    public class PropertyController : BaseController<Property, PropertyService, PropertyDAO>
+    public class PropertyController : CRUDController<Property, PropertyService, PropertyDAO>
     {
     }
 }

@@ -24,7 +24,7 @@ namespace Backend_Web.Controllers
                 }
 
                 AuthService authService = new AuthService();
-                return authService.Login(user.username, user.password); ;
+                return authService.Login(user.username, user.password);
             }
             catch (Exception ex)
             {

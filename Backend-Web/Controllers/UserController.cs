@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace Backend_Web.Controllers
 {
-    public class UserController : BaseController<User, UserService, UserDAO>
+    public class UserController : CRUDController<User, UserService, UserDAO>
     {
     }
 }

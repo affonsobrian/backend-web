@@ -1,8 +1,9 @@
-﻿using Backend_Web.DAL.DAO_s;
-using Backend_Web.Services;
-using Backend_Web.Utils;
+﻿using Backend_Web.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -10,109 +11,13 @@ namespace Backend_Web.Controllers
 {
     [EnableCors("http://localhost:3000", headers: "*", methods: "*")]
     [TokenAuthorization]
-    public abstract class BaseController<TModel, TService, TDao> : ApiController where TModel : class where TService : BaseService<TModel, TDao>, new() where TDao : BaseDAO<TModel>, new()
+    public abstract class BaseController<TService> : ApiController where TService : class, new()
     {
-
-        #region .: Contructors :.
         public BaseController()
         {
             _service = new TService();
         }
 
-        #endregion
-
-        #region .: Properties :.
-
-        public TService _service { get; set; }
-
-        #endregion
-
-        #region .: Public Methods :.
-
-        [HttpGet]
-        public virtual BaseResponse<TModel> Get(int id)
-        {
-            try
-            {
-                return _service.Find(id);
-            }
-            catch (Exception)
-            {
-                return new BaseResponse<TModel> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
-            }
-        }
-
-        [HttpPost]
-        public virtual BaseResponse<string> Post(TModel element)
-        {
-            try
-            {
-                BaseResponse<bool> response = VatidateObject(element);
-                if (response.Content)
-                {
-                    return _service.Insert(element);
-                }
-
-                return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
-            }
-            catch (Exception)
-            {
-                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
-            }
-        }
-
-        [HttpPut]
-        public virtual BaseResponse<string> Put(TModel element)
-        {
-            try
-            {
-                BaseResponse<bool> response = VatidateObject(element);
-                if (response.Content)
-                {
-                    return _service.Edit(element);
-                }
-
-                return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };
-            }
-            catch (Exception)
-            {
-                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
-            }
-        }
-
-        [HttpDelete]
-        public virtual BaseResponse<string> Delete(int id)
-        {
-            try
-            {
-                return _service.Remove(id);
-            }
-            catch (Exception)
-            {
-                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
-            }
-        }
-
-        [HttpGet]
-        [Route("api/{controller}/")]
-        [EnableCors("http://localhost:3000", headers: "*", methods: "*")]
-        public virtual BaseResponse<List<TModel>> List()
-        {
-            return _service.List();
-        }
-
-        protected virtual BaseResponse<bool> VatidateObject(TModel element)
-        {
-            try
-            {
-                return new BaseResponse<bool> { Content = true };
-            }
-            catch (Exception)
-            {
-                return new BaseResponse<bool> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
-            }
-        }
-
-        #endregion
+        protected TService _service;
     }
 }

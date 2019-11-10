@@ -12,7 +12,9 @@ namespace Backend_Web.Models.DAL
             {
                 { typeof(User), Users },
                 { typeof(Property), Properties },
-                { typeof(Person), People }
+                { typeof(Person), People },
+                { typeof(Transaction), Transactions },
+                { typeof(History), Histories }
             };
         }
 
@@ -22,6 +24,8 @@ namespace Backend_Web.Models.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<History> Histories { get; set; }
 
         private readonly TypeDictionary<object> Tables;
 

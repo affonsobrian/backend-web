@@ -10,6 +10,7 @@
     public enum Status
     {
         OK,
+        NOTFOUND,
         ERROR
     }
 }

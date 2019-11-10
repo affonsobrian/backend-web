@@ -61,7 +61,34 @@ namespace Backend_Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected error has occurred.
+        ///   Looks up a localized string similar to O item já foi alocado.
+        /// </summary>
+        internal static string alreadyBorrowed {
+            get {
+                return ResourceManager.GetString("alreadyBorrowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Um dos campos precisa ser especificado (Id ou Email).
+        /// </summary>
+        internal static string oneRequired {
+            get {
+                return ResourceManager.GetString("oneRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O formado de data está incorreto.
+        /// </summary>
+        internal static string parseDateError {
+            get {
+                return ResourceManager.GetString("parseDateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Um erro inesperado ocorreu.
         /// </summary>
         internal static string unexpectedError {
             get {

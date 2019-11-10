@@ -3,7 +3,7 @@ using Backend_Web.Models;
 
 namespace Backend_Web.Services
 {
-    public class PropertyService : BaseService<Property, PropertyDAO>
+    public class PropertyService : CRUDService<Property, PropertyDAO>
     {
     }
 }

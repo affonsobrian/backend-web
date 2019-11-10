@@ -1,10 +1,13 @@
-﻿namespace Backend_Web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Backend_Web.Models
 {
     /// <summary>
     /// The Properties that can be borrowed
     /// </summary>
     public class Property
     {
+        #region .: Properties :.
         /// <summary>
         /// The identification of the property
         /// </summary>
@@ -12,14 +15,27 @@
         /// <summary>
         /// The name of the property
         /// </summary>
-        public string Name { get; set; }
+        public string ServiceTag { get; set; }
         /// <summary>
         /// The description of the property
         /// </summary>
         public string Description { get; set; }
         /// <summary>
+        /// The status of the propety
+        /// </summary>
+        public string Status { get; set; }
+        #endregion
+
+        #region .: References :.
+
+        /// <summary>
+        /// Type of property
+        /// </summary>
+        public int TypeId { get; set; }
+        /// <summary>
         /// The id of the person with this item
         /// </summary>
-        public int PersonId { get; set; }
+        //public int PersonId { get; set; } 
+        #endregion
     }
 }

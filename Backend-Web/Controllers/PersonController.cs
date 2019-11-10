@@ -12,7 +12,7 @@ using System.Web.Http;
 
 namespace Backend_Web.Controllers
 {
-    public class PersonController : BaseController<Person, PersonService, PersonDAO>
+    public class PersonController : CRUDController<Person, PersonService, PersonDAO>
     {
         #region .: Overridden Methods :.
 
@@ -20,14 +20,9 @@ namespace Backend_Web.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(element.FirstName))
+                if (string.IsNullOrEmpty(element.Name))
                 {
                     return new BaseResponse<bool> { Content = false, Message = "First name can't be empty" };
-                }
-
-                if (string.IsNullOrEmpty(element.LastName))
-                {
-                    return new BaseResponse<bool> { Content = false, Message = "Last name can't be empty" };
                 }
 
                 if (string.IsNullOrEmpty(element.Email) || !new EmailAddressAttribute().IsValid(element.Email))
@@ -40,7 +35,7 @@ namespace Backend_Web.Controllers
                     return new BaseResponse<bool> { Content = false, Message = "Invalid telephone" };
                 }
 
-                if (string.IsNullOrEmpty(element.RG) || !ValidateRG(element.RG))
+                if (string.IsNullOrEmpty(element.RG))
                 {
                     return new BaseResponse<bool> { Content = false, Message = "Invalid RG" };
                 }
@@ -68,20 +63,6 @@ namespace Backend_Web.Controllers
             catch(Exception)
             {
                 return new BaseResponse<List<Property>> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
-            }
-        }
-
-        [HttpPut]
-        [Route("api/person/{id}/borrow")]
-        public BaseResponse<string> Borrow(int id, [FromBody] int property)
-        {
-            try
-            {
-                return _service.Borrow(id, property);
-            }
-            catch (Exception)
-            {
-                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
             }
         }
 

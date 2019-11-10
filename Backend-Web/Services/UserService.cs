@@ -9,7 +9,7 @@ namespace Backend_Web.Services
     /// <summary>
     /// The service layer of the <seealso cref="User"/> model
     /// </summary>
-    public class UserService : BaseService<User, UserDAO>
+    public class UserService : CRUDService<User, UserDAO>
     {
         public override BaseResponse<string> Insert(User element)
         {
