@@ -70,6 +70,69 @@ namespace Backend_Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O RG não pode estar vazio.
+        /// </summary>
+        internal static string emptyRG {
+            get {
+                return ResourceManager.GetString("emptyRG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuário e senha não correspondem.
+        /// </summary>
+        internal static string failedLogin {
+            get {
+                return ResourceManager.GetString("failedLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail inválido.
+        /// </summary>
+        internal static string invalidEmail {
+            get {
+                return ResourceManager.GetString("invalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefone inválido, deve-se seguir o padrão ex: (11) 91234-5678.
+        /// </summary>
+        internal static string invalidTelephone {
+            get {
+                return ResourceManager.GetString("invalidTelephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo nome não pode estar vazio.
+        /// </summary>
+        internal static string missingName {
+            get {
+                return ResourceManager.GetString("missingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo de senha não pode estar vazio.
+        /// </summary>
+        internal static string missingPassword {
+            get {
+                return ResourceManager.GetString("missingPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo usuário não pode estar vazio.
+        /// </summary>
+        internal static string missingUsername {
+            get {
+                return ResourceManager.GetString("missingUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Um dos campos precisa ser especificado (Id ou Email).
         /// </summary>
         internal static string oneRequired {

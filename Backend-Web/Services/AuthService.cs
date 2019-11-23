@@ -29,25 +29,16 @@ namespace Backend_Web.Services
 
                 if (string.IsNullOrEmpty(token) || token == username)
                 {
-                    return new BaseResponse<string> { Status = Status.ERROR, Message = "User and password don't match" };
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.failedLogin, Content = string.Empty };
                 }
                 else
                 {
-                    return new BaseResponse<string> { Status = Status.OK, Content = token, Message = "Success" };
+                    return new BaseResponse<string> { Status = Status.OK, Content = token, Message = Resources.Commun.success };
                 }
-                //if (token == null)
-                //    return new BaseResponse<string> { Status = Status.ERROR, Message = "User and password don't match" };
-                //else if (token.Value == Guid.Empty)
-                //    return new BaseResponse<string> { Status = Status.ERROR, Message = "User and password don't match" };
-
-                //if (_dao.Insert(token))
-                //    return new BaseResponse<string> { Status = Status.OK, Content = token.Value.ToString() , Message = "Success"};
-                //else
-                //    return new BaseResponse<string> { Status = Status.ERROR, Message = "Unexpected Error" };
             }
             catch (Exception)
             {
-                return new BaseResponse<string> { Status = Status.ERROR, Message = "Unexpected Error" };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError, Content = string.Empty };
             }
 
         }
@@ -90,13 +81,10 @@ namespace Backend_Web.Services
 
             if (ValidToken(token, out string username))
             {
-                // based on username to get more information from database 
-                // in order to build local identity
                 List<Claim> claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, username)
-            // Add more claims if needed: Roles, ...
-        };
+                {
+                    new Claim(ClaimTypes.Name, username)
+                };
 
                 ClaimsIdentity identity = new ClaimsIdentity(claims, "Jwt");
                 IPrincipal user = new ClaimsPrincipal(identity);
@@ -106,6 +94,7 @@ namespace Backend_Web.Services
 
             return Task.FromResult<IPrincipal>(null);
         }
+
         public bool ValidToken(string token, out string username)
         {
             username = null;
@@ -137,10 +126,7 @@ namespace Backend_Web.Services
                     return false;
                 }
 
-                // More validate to check whether username exists in system
-
                 return true;
-                //return _dao.ValidateToken(token);
             }
             catch (Exception)
             {

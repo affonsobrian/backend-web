@@ -26,16 +26,19 @@ namespace Backend_Web.Models
         public string Status { get; set; }
         #endregion
 
-        #region .: References :.
-
         /// <summary>
         /// Type of property
         /// </summary>
-        public int TypeId { get; set; }
+        public string Type { get; set; }
+
+
+        #region .: References :.
+
         /// <summary>
         /// The id of the person with this item
         /// </summary>
-        //public int PersonId { get; set; } 
+        public int? PersonId { get; set; }
+
         #endregion
     }
 }

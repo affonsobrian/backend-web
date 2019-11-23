@@ -120,6 +120,27 @@
   <data name="alreadyBorrowed" xml:space="preserve">
     <value>O item já foi alocado</value>
   </data>
+  <data name="emptyRG" xml:space="preserve">
+    <value>O RG não pode estar vazio</value>
+  </data>
+  <data name="failedLogin" xml:space="preserve">
+    <value>Usuário e senha não correspondem</value>
+  </data>
+  <data name="invalidEmail" xml:space="preserve">
+    <value>E-mail inválido</value>
+  </data>
+  <data name="invalidTelephone" xml:space="preserve">
+    <value>Telefone inválido, deve-se seguir o padrão ex: (11) 91234-5678</value>
+  </data>
+  <data name="missingName" xml:space="preserve">
+    <value>O campo nome não pode estar vazio</value>
+  </data>
+  <data name="missingPassword" xml:space="preserve">
+    <value>O campo de senha não pode estar vazio</value>
+  </data>
+  <data name="missingUsername" xml:space="preserve">
+    <value>O campo usuário não pode estar vazio</value>
+  </data>
   <data name="oneRequired" xml:space="preserve">
     <value>Um dos campos precisa ser especificado (Id ou Email)</value>
   </data>

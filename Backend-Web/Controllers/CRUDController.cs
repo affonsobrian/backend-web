@@ -42,7 +42,14 @@ namespace Backend_Web.Controllers
                 BaseResponse<bool> response = VatidateObject(element);
                 if (response.Content)
                 {
-                    return _service.Insert(element);
+                    if ((int) element.GetType().GetProperty("Id").GetValue(element) == 0)
+                    {
+                        return _service.Insert(element);
+                    }
+                    else
+                    {
+                        return _service.Edit(element);
+                    }
                 }
 
                 return new BaseResponse<string> { Status = Status.ERROR, Message = response.Message };

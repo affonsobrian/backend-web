@@ -22,22 +22,22 @@ namespace Backend_Web.Controllers
             {
                 if (string.IsNullOrEmpty(element.Name))
                 {
-                    return new BaseResponse<bool> { Content = false, Message = "First name can't be empty" };
+                    return new BaseResponse<bool> { Content = false, Message = Resources.ErrorMessages.missingName };
                 }
 
                 if (string.IsNullOrEmpty(element.Email) || !new EmailAddressAttribute().IsValid(element.Email))
                 {
-                    return new BaseResponse<bool> { Content = false, Message = "Invalid e-mail" };
+                    return new BaseResponse<bool> { Content = false, Message = Resources.ErrorMessages.invalidEmail };
                 }
 
                 if (string.IsNullOrEmpty(element.Telephone) || !ValidateTelephone(element.Telephone))
                 {
-                    return new BaseResponse<bool> { Content = false, Message = "Invalid telephone" };
+                    return new BaseResponse<bool> { Content = false, Message = Resources.ErrorMessages.invalidTelephone };
                 }
 
                 if (string.IsNullOrEmpty(element.RG))
                 {
-                    return new BaseResponse<bool> { Content = false, Message = "Invalid RG" };
+                    return new BaseResponse<bool> { Content = false, Message = Resources.ErrorMessages.emptyRG };
                 }
 
                 return base.VatidateObject(element);
@@ -52,19 +52,19 @@ namespace Backend_Web.Controllers
 
         #region .: Public Methods :.
 
-        [HttpGet]
-        [Route("api/person/properties/{id}")]
-        public BaseResponse<List<Property>> Properties(int id)
-        {
-            try
-            {
-                return new BaseResponse<List<Property>> { Status = Status.OK, Message = Resources.Commun.success, Content = new List<Property>() };
-            }
-            catch(Exception)
-            {
-                return new BaseResponse<List<Property>> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
-            }
-        }
+        //[HttpGet]
+        //[Route("api/person/properties/{id}")]
+        //public BaseResponse<List<Property>> Properties(int id)
+        //{
+        //    try
+        //    {
+        //        return new BaseResponse<List<Property>> { Status = Status.OK, Message = Resources.Commun.success, Content = new List<Property>() };
+        //    }
+        //    catch(Exception)
+        //    {
+        //        return new BaseResponse<List<Property>> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+        //    }
+        //}
 
         #endregion
 
@@ -82,41 +82,6 @@ namespace Backend_Web.Controllers
                 return false;
             }
         }
-
-        private bool ValidateRG(string RG)
-        {
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("https://www.4devs.com.br/ferramentas_online.php");
-                    HttpResponseMessage response = client.PostAsync("", new StringContent("acao=validar_rg&txt_rg=" + RG, Encoding.UTF8, "application/x-www-form-urlencoded")).Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string result = response.Content.ReadAsStringAsync().Result;
-                        if (string.IsNullOrEmpty(result))
-                        {
-                            return false;
-                        }
-
-                        if (result.Split()[2] != "Verdadeiro")
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-        } 
 
         #endregion
     }

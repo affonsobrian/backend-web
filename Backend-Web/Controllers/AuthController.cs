@@ -16,11 +16,11 @@ namespace Backend_Web.Controllers
             {
                 if (string.IsNullOrEmpty(user.username))
                 {
-                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Missing parameter username" };
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.missingUsername, Content = string.Empty };
                 }
                 if (string.IsNullOrEmpty(user.password))
                 {
-                    return new BaseResponse<string> { Status = Status.ERROR, Content = "Missing parameter password" };
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.missingPassword, Content = string.Empty };
                 }
 
                 AuthService authService = new AuthService();
