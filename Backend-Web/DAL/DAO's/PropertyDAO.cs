@@ -10,5 +10,12 @@ namespace Backend_Web.DAL.DAO_s
         {
             return db.Where(_ => _.Person.Id == personId).ToList();
         }
+
+        public override bool Remove(int id)
+        {
+            Property element = FindById(id);
+            element.Active = false;
+            return Edit(element);
+        }
     }
 }

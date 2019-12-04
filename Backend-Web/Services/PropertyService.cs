@@ -21,5 +21,16 @@ namespace Backend_Web.Services
                 return new BaseResponse<List<Property>> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError, Content = null };
             }
         }
+
+        public override BaseResponse<List<Property>> List()
+        {
+            BaseResponse<List<Property>> response = base.List();
+            if (response.Status == Status.OK && response.Content.Count > 0)
+            {
+                response.Content = response.Content.FindAll(_ => _.Active);
+            }
+
+            return response;
+        }
     }
 }

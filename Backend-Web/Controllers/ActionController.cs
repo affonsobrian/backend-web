@@ -43,9 +43,24 @@ namespace Backend_Web.Controllers
         {
             if (!DateTime.TryParse(returnItem.Date, out DateTime date))
             {
-                return new BaseResponse<bool> { Status = Status.ERROR, Message = Resources.ErrorMessages.parseDateError };
+                return new BaseResponse<bool> { Status = Status.ERROR, Message = Resources.ErrorMessages.parseDateError, Content = false };
             }
-            return _service.Return(returnItem.Person, returnItem.Properties, date);
+
+            if (returnItem.Person == 0)
+            {
+                if (string.IsNullOrEmpty(returnItem.Email))
+                {
+                    return new BaseResponse<bool> { Status = Status.ERROR, Message = Resources.ErrorMessages.oneRequired, Content = false };
+                }
+                else
+                {
+                    return _service.Return(returnItem.Email, returnItem.Properties, date);
+                }
+            }
+            else
+            {
+                return _service.Return(returnItem.Person, returnItem.Properties, date);
+            }
         }
     }
 }

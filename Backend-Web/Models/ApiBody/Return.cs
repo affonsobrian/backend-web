@@ -9,6 +9,7 @@ namespace Backend_Web.Models.ApiBody
     {
         public List<int> Properties { get; set; }
         public int Person { get; set; }
+        public string Email { get; set; }
         public string Date { get; set; }
     }
 }
