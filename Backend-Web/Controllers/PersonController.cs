@@ -1,5 +1,6 @@
 ﻿using Backend_Web.DAL.DAO_s;
 using Backend_Web.Models;
+using Backend_Web.Models.ApiBody;
 using Backend_Web.Services;
 using Backend_Web.Utils;
 using System;
@@ -14,6 +15,13 @@ namespace Backend_Web.Controllers
 {
     public class PersonController : CRUDController<Person, PersonService, PersonDAO>
     {
+        [HttpPost]
+        [Route("api/person/checkemail")]
+        public BaseResponse<bool> CheckEmail([FromBody]CheckEmail body)
+        {
+            return _service.CheckEmail(body.Email);
+        }
+
         #region .: Overridden Methods :.
 
         protected override BaseResponse<bool> VatidateObject(Person element)
@@ -44,27 +52,9 @@ namespace Backend_Web.Controllers
             }
             catch (Exception)
             {
-                return new BaseResponse<bool> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
+                return new BaseResponse<bool> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError, Content = false };
             }
         }
-
-        #endregion
-
-        #region .: Public Methods :.
-
-        //[HttpGet]
-        //[Route("api/person/properties/{id}")]
-        //public BaseResponse<List<Property>> Properties(int id)
-        //{
-        //    try
-        //    {
-        //        return new BaseResponse<List<Property>> { Status = Status.OK, Message = Resources.Commun.success, Content = new List<Property>() };
-        //    }
-        //    catch(Exception)
-        //    {
-        //        return new BaseResponse<List<Property>> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
-        //    }
-        //}
 
         #endregion
 

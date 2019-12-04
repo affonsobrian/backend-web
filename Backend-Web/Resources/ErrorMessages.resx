@@ -120,11 +120,17 @@
   <data name="alreadyBorrowed" xml:space="preserve">
     <value>O item já foi alocado</value>
   </data>
+  <data name="available" xml:space="preserve">
+    <value>O equipamento está disponível</value>
+  </data>
   <data name="emptyRG" xml:space="preserve">
     <value>O RG não pode estar vazio</value>
   </data>
   <data name="failedLogin" xml:space="preserve">
     <value>Usuário e senha não correspondem</value>
+  </data>
+  <data name="inactiveEmail" xml:space="preserve">
+    <value>O e-mail existe porém está inativo</value>
   </data>
   <data name="invalidEmail" xml:space="preserve">
     <value>E-mail inválido</value>
@@ -141,11 +147,17 @@
   <data name="missingUsername" xml:space="preserve">
     <value>O campo usuário não pode estar vazio</value>
   </data>
+  <data name="notFound" xml:space="preserve">
+    <value>Item não foi encontrado</value>
+  </data>
   <data name="oneRequired" xml:space="preserve">
     <value>Um dos campos precisa ser especificado (Id ou Email)</value>
   </data>
   <data name="parseDateError" xml:space="preserve">
     <value>O formado de data está incorreto</value>
+  </data>
+  <data name="personDontMatch" xml:space="preserve">
+    <value>A pessoa que está devolvendo não correponde com a cadastrada no sistema</value>
   </data>
   <data name="unexpectedError" xml:space="preserve">
     <value>Um erro inesperado ocorreu</value>

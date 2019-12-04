@@ -40,7 +40,7 @@ namespace Backend_Web.Services
             catch (Exception ex)
             {
                 logger.Error(ex, "Error getting " + typeof(TModel).Name);
-                return new BaseResponse<TModel> { Status = Status.ERROR, Message = "Error finding object" };
+                return new BaseResponse<TModel> { Status = Status.ERROR, Message = Resources.ErrorMessages.notFound };
             }
         }
 
@@ -50,17 +50,17 @@ namespace Backend_Web.Services
             {
                 if (_dao.Insert(element))
                 {
-                    return new BaseResponse<string> { Status = Status.OK, Message = "Success" };
+                    return new BaseResponse<string> { Status = Status.OK, Message = Resources.Commun.success };
                 }
                 else
                 {
-                    return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Error inserting " + typeof(TModel).Name);
-                return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
             }
         }
 
@@ -70,17 +70,17 @@ namespace Backend_Web.Services
             {
                 if (_dao.Edit(element))
                 {
-                    return new BaseResponse<string> { Status = Status.OK, Message = "Success" };
+                    return new BaseResponse<string> { Status = Status.OK, Message = Resources.Commun.success };
                 }
                 else
                 {
-                    return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Error editing " + typeof(TModel).Name);
-                return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
             }
         }
 
@@ -90,17 +90,17 @@ namespace Backend_Web.Services
             {
                 if (_dao.Remove(id))
                 {
-                    return new BaseResponse<string> { Status = Status.OK, Message = "Success" };
+                    return new BaseResponse<string> { Status = Status.OK, Message = Resources.Commun.success };
                 }
                 else
                 {
-                    return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                    return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Error removing " + typeof(TModel).Name);
-                return new BaseResponse<string> { Status = Status.ERROR, Message = "Failed" };
+                return new BaseResponse<string> { Status = Status.ERROR, Message = Resources.ErrorMessages.unexpectedError };
             }
         }
         public virtual BaseResponse<List<TModel>> List()
@@ -108,7 +108,7 @@ namespace Backend_Web.Services
             try
             {
                 List<TModel> element = _dao.List();
-                return new BaseResponse<List<TModel>> { Status = Status.OK, Content = element, Message = "Success" };
+                return new BaseResponse<List<TModel>> { Status = Status.OK, Content = element, Message = Resources.Commun.success };
             }
             catch (Exception ex)
             {

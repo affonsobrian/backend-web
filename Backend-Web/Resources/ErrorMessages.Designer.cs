@@ -70,6 +70,15 @@ namespace Backend_Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O equipamento está disponível.
+        /// </summary>
+        internal static string available {
+            get {
+                return ResourceManager.GetString("available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O RG não pode estar vazio.
         /// </summary>
         internal static string emptyRG {
@@ -84,6 +93,15 @@ namespace Backend_Web.Resources {
         internal static string failedLogin {
             get {
                 return ResourceManager.GetString("failedLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O e-mail existe porém está inativo.
+        /// </summary>
+        internal static string inactiveEmail {
+            get {
+                return ResourceManager.GetString("inactiveEmail", resourceCulture);
             }
         }
         
@@ -133,6 +151,15 @@ namespace Backend_Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item não foi encontrado.
+        /// </summary>
+        internal static string notFound {
+            get {
+                return ResourceManager.GetString("notFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Um dos campos precisa ser especificado (Id ou Email).
         /// </summary>
         internal static string oneRequired {
@@ -147,6 +174,15 @@ namespace Backend_Web.Resources {
         internal static string parseDateError {
             get {
                 return ResourceManager.GetString("parseDateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A pessoa que está devolvendo não correponde com a cadastrada no sistema.
+        /// </summary>
+        internal static string personDontMatch {
+            get {
+                return ResourceManager.GetString("personDontMatch", resourceCulture);
             }
         }
         

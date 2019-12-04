@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Backend_Web.Models
 {
@@ -15,11 +17,16 @@ namespace Backend_Web.Models
         /// <summary>
         /// The name of the property
         /// </summary>
+        [MinLength(1)]
         public string ServiceTag { get; set; }
         /// <summary>
         /// The description of the property
         /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// The property's number
+        /// </summary>
+        public string PropertyNumber { get; set; }
         /// <summary>
         /// The status of the propety
         /// </summary>
@@ -37,7 +44,7 @@ namespace Backend_Web.Models
         /// <summary>
         /// The id of the person with this item
         /// </summary>
-        public int? PersonId { get; set; }
+        public virtual Person Person { get; set; }
 
         #endregion
     }

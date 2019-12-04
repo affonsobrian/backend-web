@@ -3,6 +3,7 @@ using Backend_Web.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Dynamic;
 
@@ -46,8 +47,16 @@ namespace Backend_Web.DAL.DAO_s
 
         public virtual bool Edit(TModel element)
         {
-            DatabaseHandler.Database.Entry<TModel>(FindById((int)typeof(TModel).GetProperty("Id").GetValue(element))).CurrentValues.SetValues(element);
-            return DatabaseHandler.Database.SaveChanges() > 0;
+            try
+            {
+                DatabaseHandler.Database.Entry<TModel>(FindById((int)typeof(TModel).GetProperty("Id").GetValue(element))).CurrentValues.SetValues(element);
+                return DatabaseHandler.Database.SaveChanges() >= 0;
+            }
+            catch(DbEntityValidationException ex)
+            {
+                return false;
+            }
+            
         }
 
         public virtual bool Remove(int id)
